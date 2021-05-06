@@ -17,6 +17,12 @@ export type Props = {
   respawns?: boolean
 }
 
+const gltfShapeBeerDispenser = new GLTFShape("bar/models/beerDispenser.glb")
+gltfShapeBeerDispenser.withCollisions = true
+gltfShapeBeerDispenser.isPointerBlocker = true
+gltfShapeBeerDispenser.visible = true
+
+
 export default class Button implements IScript<Props> {
   inventory: IInventory
   //targets: Record<Entity, [Entity, IChannel,Tap[]]> = {}
@@ -156,7 +162,7 @@ export default class Button implements IScript<Props> {
 
     // Dispenser
     const beerDispenser = new Entity(BEER_DISPENER_NAME + "."+host.name);
-    beerDispenser.addComponent(new GLTFShape("bar/models/beerDispenser.glb"))
+    beerDispenser.addComponent(gltfShapeBeerDispenser)
     //beerDispenser.addComponent(new Transform({ position: new Vector3(8, 1.25, 7.5) }))
     beerDispenser.addComponent(new Transform({ position: new Vector3(0, 0, 0) }))
     //beerDispenser.getComponent(Transform).rotate(Vector3.Up(), 180)
