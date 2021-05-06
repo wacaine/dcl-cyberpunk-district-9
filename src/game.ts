@@ -45,6 +45,7 @@ import Script42 from "../7d669c08-c354-45e4-b3a3-c915c8fd6b6e/src/item"
 import Script43 from "../a72de884-e275-490d-b1bb-7f7eaca4777f/src/item"
 import Script44 from "../274df603-dd2b-4a32-b2a0-c4ad758cb037/src/item"
 
+import ScriptArcade from "../arcade-games/src/item"
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
 const transform = new Transform({
@@ -853,10 +854,11 @@ const transform62 = new Transform({
 })
 tieredDesk3.addComponentOrReplace(transform62)
 
+//active arcade
 const arcadeMachineBlack2 = new Entity('arcadeMachineBlack2')
 engine.addEntity(arcadeMachineBlack2)
 arcadeMachineBlack2.setParent(_scene)
-arcadeMachineBlack2.addComponentOrReplace(gltfShape29)
+//arcadeMachineBlack2.addComponentOrReplace(gltfShape29) //must this be commented out?  could we keep this?
 const transform63 = new Transform({
   position: new Vector3(62, 0, 38),
   rotation: new Quaternion(9.350888830882576e-15, -0.7071067094802856, 8.429367426288081e-8, 0.70710688829422),
@@ -8663,6 +8665,7 @@ const script41 = new Script41()
 const script42 = new Script42()
 const script43 = new Script43()
 const script44 = new Script44()
+const scriptArcade1 = new ScriptArcade()
 script1.init(options)
 script2.init(options)
 script3.init(options)
@@ -8707,6 +8710,7 @@ script41.init(options)
 script42.init(options)
 script43.init(options)
 script44.init(options)
+scriptArcade1.init(options)
 script1.spawn(cyberpunkDoor, {"onClickText":"Open/Close","onClick":[{"entityName":"cyberpunkDoor","actionId":"toggle","values":{}}]}, createChannel(channelId, cyberpunkDoor, channelBus))
 script2.spawn(openAndClosedSign, {"startOn":true,"clickable":false}, createChannel(channelId, openAndClosedSign, channelBus))
 script2.spawn(openAndClosedSign2, {"startOn":true,"clickable":false,"onActivate":[]}, createChannel(channelId, openAndClosedSign2, channelBus))
@@ -9010,3 +9014,4 @@ script8.spawn(invisibleWall39, {"enabled":true}, createChannel(channelId, invisi
 script8.spawn(invisibleWall40, {"enabled":true}, createChannel(channelId, invisibleWall40, channelBus))
 script36.spawn(triggerArea7, {"enabled":true,"onEnter":[{"entityName":"toolbox5","actionId":"scale","values":{"target":"toggleButton22","x":0,"y":0,"z":0,"curve":"linear","speed":19,"onComplete":[]}},{"entityName":"triggerArea7","actionId":"disable","values":{}}]}, createChannel(channelId, triggerArea7, channelBus))
 script31.spawn(plainText8, {"text":"To Enter\nLockdown\nBuilding First\n","font":"SF","color":"#FFFFFF"}, createChannel(channelId, plainText8, channelBus))
+scriptArcade1.spawn(arcadeMachineBlack2, {}, createChannel(channelId, arcadeMachineBlack2, channelBus))
