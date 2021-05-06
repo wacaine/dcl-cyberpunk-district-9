@@ -4850,7 +4850,7 @@ const transform435 = new Transform({
   scale: new Vector3(2.000011682510376, 1.4905658960342407, 4.50002384185791)
 })
 smallStoneSlabTile.addComponentOrReplace(transform435)
-const gltfShape50 = new GLTFShape("models/StoneSlabSmall_01/StoneSlabSmall_01.glb")
+const gltfShape50 = new GLTFShape("models/StoneSlabSmall_01/StoneSlabSmall_01-no-bottom.glb")
 gltfShape50.withCollisions = true
 gltfShape50.isPointerBlocker = true
 gltfShape50.visible = true
