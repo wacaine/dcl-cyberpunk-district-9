@@ -46,6 +46,8 @@ import Script43 from "../a72de884-e275-490d-b1bb-7f7eaca4777f/src/item"
 import Script44 from "../274df603-dd2b-4a32-b2a0-c4ad758cb037/src/item"
 
 import ScriptArcade from "../arcade-games/src/item"
+import ScriptBar from "../bar/src/item"
+
 const _scene = new Entity('_scene')
 engine.addEntity(_scene)
 const transform = new Transform({
@@ -619,7 +621,7 @@ const transform43 = new Transform({
   scale: new Vector3(1, 1, 1)
 })
 barBlack.addComponentOrReplace(transform43)
-const gltfShape28 = new GLTFShape("models/Bar_Black.glb")
+const gltfShape28 = new GLTFShape("models/Bar_Black_No_Taps.glb")
 gltfShape28.withCollisions = true
 gltfShape28.isPointerBlocker = true
 gltfShape28.visible = true
@@ -8616,6 +8618,52 @@ const transform786 = new Transform({
 })
 plainText8.addComponentOrReplace(transform786)
 
+const barHost1 = new Entity('barHost1')
+engine.addEntity(barHost1)
+barHost1.setParent(_scene)
+const barHostTransform8 = new Transform({
+  position: new Vector3(7.055558681488037, 0.8591527938842773, 26.6),
+  rotation: new Quaternion(0, 0, 0, 1),
+  scale: new Vector3(1, 1, 1)
+})
+barHost1.addComponentOrReplace(barHostTransform8)
+barHost1.getComponent(Transform).rotate(Vector3.Up(), 180)
+
+const barHost2 = new Entity('barHost2')
+engine.addEntity(barHost2)
+barHost2.setParent(_scene)
+const barHost2Transform8 = new Transform({
+  position: new Vector3(9.746240615844727, 0.8591527938842773, 26.6),
+  rotation: new Quaternion(0, 0, 0, 1),
+  scale: new Vector3(1, 1, 1)
+})
+barHost2.addComponentOrReplace(barHost2Transform8)
+barHost2.getComponent(Transform).rotate(Vector3.Up(), 180)
+
+
+const barHost3 = new Entity('barHost3')
+engine.addEntity(barHost3)
+barHost3.setParent(_scene)
+const barHost3Transform8 = new Transform({
+  position: new Vector3(62, 24.898466110229492, 40.172061920166016),
+  rotation: new Quaternion(0, 0, 0, 1),
+  scale: new Vector3(1, 1, 1)
+})
+barHost3.addComponentOrReplace(barHost3Transform8)
+barHost3.getComponent(Transform).rotate(Vector3.Up(), 90)
+
+
+const barHost4 = new Entity('barHost4')
+engine.addEntity(barHost4)
+barHost4.setParent(_scene)
+const barHost4Transform8 = new Transform({
+  position: new Vector3(62, 24.859153747558594, 42.894630432128906),
+  rotation: new Quaternion(0, 0, 0, 1),
+  scale: new Vector3(1, 1, 1)
+})
+barHost4.addComponentOrReplace(barHost4Transform8)
+barHost4.getComponent(Transform).rotate(Vector3.Up(), 90)
+
 const channelId = Math.random().toString(16).slice(2)
 const channelBus = new MessageBus()
 const inventory = createInventory(UICanvas, UIContainerStack, UIImage)
@@ -8666,6 +8714,11 @@ const script42 = new Script42()
 const script43 = new Script43()
 const script44 = new Script44()
 const scriptArcade1 = new ScriptArcade()
+const scriptBar1 = new ScriptBar()
+const scriptBar2 = new ScriptBar()
+const scriptBar3 = new ScriptBar()
+const scriptBar4 = new ScriptBar()
+
 script1.init(options)
 script2.init(options)
 script3.init(options)
@@ -8711,6 +8764,11 @@ script42.init(options)
 script43.init(options)
 script44.init(options)
 scriptArcade1.init(options)
+scriptBar1.init(options)
+scriptBar2.init(options)
+scriptBar3.init(options)
+scriptBar4.init(options)
+
 script1.spawn(cyberpunkDoor, {"onClickText":"Open/Close","onClick":[{"entityName":"cyberpunkDoor","actionId":"toggle","values":{}}]}, createChannel(channelId, cyberpunkDoor, channelBus))
 script2.spawn(openAndClosedSign, {"startOn":true,"clickable":false}, createChannel(channelId, openAndClosedSign, channelBus))
 script2.spawn(openAndClosedSign2, {"startOn":true,"clickable":false,"onActivate":[]}, createChannel(channelId, openAndClosedSign2, channelBus))
@@ -9015,3 +9073,18 @@ script8.spawn(invisibleWall40, {"enabled":true}, createChannel(channelId, invisi
 script36.spawn(triggerArea7, {"enabled":true,"onEnter":[{"entityName":"toolbox5","actionId":"scale","values":{"target":"toggleButton22","x":0,"y":0,"z":0,"curve":"linear","speed":19,"onComplete":[]}},{"entityName":"triggerArea7","actionId":"disable","values":{}}]}, createChannel(channelId, triggerArea7, channelBus))
 script31.spawn(plainText8, {"text":"To Enter\nLockdown\nBuilding First\n","font":"SF","color":"#FFFFFF"}, createChannel(channelId, plainText8, channelBus))
 scriptArcade1.spawn(arcadeMachineBlack2, {}, createChannel(channelId, arcadeMachineBlack2, channelBus))
+scriptBar1.spawn(barHost1, {}, createChannel(channelId, barHost1, channelBus))
+scriptBar2.spawn(barHost2, {}, createChannel(channelId, barHost2, channelBus))
+scriptBar3.spawn(barHost3, {}, createChannel(channelId, barHost3, channelBus))
+scriptBar4.spawn(barHost4, {}, createChannel(channelId, barHost4, channelBus))
+
+/*
+// Instance the input object
+const input = Input.instance
+
+log("registing debug button down helper" )
+//debug helper for where to place things
+input.subscribe('BUTTON_DOWN', ActionButton.POINTER, true, (event) => {
+  log("event.hit.hitpoint " + event.hit.hitPoint  + " " + "event.hit.normal " + event.hit.normal )
+}
+*/
