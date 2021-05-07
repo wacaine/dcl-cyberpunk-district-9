@@ -860,7 +860,7 @@ tieredDesk3.addComponentOrReplace(transform62)
 const arcadeMachineBlack2 = new Entity('arcadeMachineBlack2')
 engine.addEntity(arcadeMachineBlack2)
 arcadeMachineBlack2.setParent(_scene)
-//arcadeMachineBlack2.addComponentOrReplace(gltfShape29) //must this be commented out?  could we keep this?
+arcadeMachineBlack2.addComponentOrReplace(gltfShape29) //assign it and code should use what host has
 const transform63 = new Transform({
   position: new Vector3(62, 0, 38),
   rotation: new Quaternion(9.350888830882576e-15, -0.7071067094802856, 8.429367426288081e-8, 0.70710688829422),

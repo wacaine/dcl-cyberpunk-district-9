@@ -23,6 +23,14 @@ const getEntityByName = (name: string) =>
     .filter((entity) => (entity as Entity).name === name)[0]
 
 
+const gltfShapePath = "arcade-games/models/Arcade_Machine_Black.glb";
+/*
+const gltfShapeArcadeMachineBlack = new GLTFShape(gltfShapePath)
+gltfShapeArcadeMachineBlack.withCollisions = true
+gltfShapeArcadeMachineBlack.isPointerBlocker = true
+gltfShapeArcadeMachineBlack.visible = true
+*/
+
 export default class Button implements IScript<Props> {
   inventory: IInventory
   //targets: Record<Entity, [Entity, IChannel,Tap[]]> = {}
@@ -40,7 +48,18 @@ export default class Button implements IScript<Props> {
   spawn(host: Entity, props: Props, channel: IChannel) {
     // TODO try to lookup GLTFShape to share common object
     //const arcadeCabinetAtari = new Arcade(new GLTFShape("arcade-games/models/Arcade_Machine_Black.glb"), new Transform({ position: new Vector3(16, 0.01, 16) }))
-    const arcadeCabinetAtari = new Arcade(new GLTFShape("arcade-games/models/Arcade_Machine_Black.glb"), new Transform({ position: new Vector3(0, 0.01, 0) }))
+    let shape = null;
+    let hostShape:GLTFShape = host.getComponent(GLTFShape);
+    //log( host.name + " " + hostShape.src)
+    if(host!=null && hostShape != null){
+      //log( host.name + " already has " +  hostShape.src)
+    }else{
+      //log( host.name + " has no shape. load one now " + gltfShapePath)
+      //how can we cache this so only loads 1 time?
+      shape = new GLTFShape(gltfShapePath);
+    }
+
+    const arcadeCabinetAtari = new Arcade(shape, new Transform({ position: new Vector3(0, 0.01, 0) }))
     //arcadeCabinetAtari.getComponent(Transform).rotate(Vector3.Down(), 180)
     
     arcadeCabinetAtari.setParent(host);

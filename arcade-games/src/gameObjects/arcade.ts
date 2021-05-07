@@ -5,7 +5,9 @@ export class Arcade extends Entity {
   constructor(model: GLTFShape, transform: Transform) {
     super()
     //engine.addEntity(this)
-    this.addComponent(model)
+    if(model != null){
+      this.addComponent(model)
+    }
     this.addComponent(transform)
 
     this.knob.addComponent(new GLTFShape("arcade-games/models/knob.glb"))
