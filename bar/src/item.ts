@@ -22,6 +22,28 @@ gltfShapeBeerDispenser.withCollisions = true
 gltfShapeBeerDispenser.isPointerBlocker = true
 gltfShapeBeerDispenser.visible = true
 
+const gltfShapeBeerTapRed = new GLTFShape("bar/models/redTap.glb")
+gltfShapeBeerTapRed.withCollisions = true
+gltfShapeBeerTapRed.isPointerBlocker = true
+gltfShapeBeerTapRed.visible = true
+
+const gltfShapeBeerTapYellow = new GLTFShape("bar/models/yellowTap.glb")
+gltfShapeBeerTapYellow.withCollisions = true
+gltfShapeBeerTapYellow.isPointerBlocker = true
+gltfShapeBeerTapYellow.visible = true
+
+const gltfShapeBeerTapGreen = new GLTFShape("bar/models/greenTap.glb")
+gltfShapeBeerTapGreen.withCollisions = true
+gltfShapeBeerTapGreen.isPointerBlocker = true
+gltfShapeBeerTapGreen.visible = true
+
+const noSignCenterImg = new ui.CenterImage("bar/images/no-sign.png", 1, true, 0, 20, 128, 128, {
+  sourceHeight: 512,
+  sourceWidth: 512,
+  sourceLeft: 0,
+  sourceTop: 0,
+})
+
 
 export default class Button implements IScript<Props> {
   inventory: IInventory
@@ -30,17 +52,10 @@ export default class Button implements IScript<Props> {
   // Sound
   errorSound = new Sound(new AudioClip("bar/sounds/error.mp3"))
   
-  noSign = new ui.CenterImage("bar/images/no-sign.png", 1, true, 0, 20, 128, 128, {
-    sourceHeight: 512,
-    sourceWidth: 512,
-    sourceLeft: 0,
-    sourceTop: 0,
-  })
+  noSign = noSignCenterImg
 
   init({ inventory }) {
     this.inventory = inventory
-    
-
     
       // Instance the input object
       const input = Input.instance
@@ -145,21 +160,6 @@ export default class Button implements IScript<Props> {
 
 
   spawn(host: Entity, props: Props, channel: IChannel) {
-    /*
-    const key = new Entity(host.name + '-key')
-    key.setParent(host)
-
-    key.addComponent(new GLTFShape('2b9d39a4-980f-489b-8e0b-46f72552ea47/models/Red_Access_Card.glb'))
-    key.addComponent(
-           new OnPointerDown(() => {
-        const equipAction = channel.createAction('equip', {})
-        channel.sendActions([equipAction])
-      }, {
-		button: ActionButton.POINTER,
-		 hoverText: "Pick up", distance: 6,
-		})
-    )*/
-
     // Dispenser
     const beerDispenser = new Entity(BEER_DISPENER_NAME + "."+host.name);
     beerDispenser.addComponent(gltfShapeBeerDispenser)
@@ -173,13 +173,13 @@ export default class Button implements IScript<Props> {
 
     const baseName = host.name + ".";
     // Taps
-    const redTap = new Tap(baseName+"0", new GLTFShape("bar/models/redTap.glb"), beerGlasses, BeerBaseState.RED_BEER, sceneMessageBus)
+    const redTap = new Tap(baseName+"0", gltfShapeBeerTapRed, beerGlasses, BeerBaseState.RED_BEER, sceneMessageBus)
     redTap.setParent(beerDispenser)
     
-    const yellowTap = new Tap(baseName+"1", new GLTFShape("bar/models/yellowTap.glb"), beerGlasses, BeerBaseState.YELLOW_BEER, sceneMessageBus)
+    const yellowTap = new Tap(baseName+"1", gltfShapeBeerTapYellow, beerGlasses, BeerBaseState.YELLOW_BEER, sceneMessageBus)
     yellowTap.setParent(beerDispenser)
     
-    const greenTap = new Tap(baseName+"2", new GLTFShape("bar/models/greenTap.glb"), beerGlasses, BeerBaseState.GREEN_BEER, sceneMessageBus)
+    const greenTap = new Tap(baseName+"2", gltfShapeBeerTapGreen, beerGlasses, BeerBaseState.GREEN_BEER, sceneMessageBus)
     greenTap.setParent(beerDispenser)
     
     const taps: Tap[] = [redTap, yellowTap, greenTap]
