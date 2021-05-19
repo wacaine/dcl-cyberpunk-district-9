@@ -1,8 +1,15 @@
+import { getOrLoadMaterial } from "../../image-cache/src/item" //importing this since I can control when using sdk
+
 export type Props = {
   image: string
 }
 
 type ChangeTextType = { newText: string }
+
+const getEntityByName = (name: string) =>
+  Object.keys(engine.entities)
+    .map((key) => engine.entities[key])
+    .filter((entity) => (entity as Entity).name === name)[0]
 
 export default class SignPost implements IScript<Props> {
   init() {}
@@ -16,12 +23,22 @@ export default class SignPost implements IScript<Props> {
 
     let url = props.image
 
-    let QRTexture = new Texture(url)
-    let QRMaterial = new Material()
-    QRMaterial.metallic = 0
-    QRMaterial.roughness = 1
-    QRMaterial.specularIntensity = 0
-    QRMaterial.albedoTexture = QRTexture
+    let QRMaterial : Material = null;
+    /* //use this lookup if doing in builder exclusivly
+    const imageCache = getEntityByName('imageCache')
+    
+    if (imageCache) {
+    */
+    if (getOrLoadMaterial) {//using exported method since using sdk
+      QRMaterial = getOrLoadMaterial(url)
+    }else{
+      let QRTexture = new Texture(url)
+      QRMaterial = new Material()
+      QRMaterial.metallic = 0
+      QRMaterial.roughness = 1
+      QRMaterial.specularIntensity = 0
+      QRMaterial.albedoTexture = QRTexture
+    }
 
     let QRPlane = new Entity()
     QRPlane.setParent(host)
