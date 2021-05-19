@@ -9,7 +9,7 @@ export const getOrLoadMaterial = function(url){
 
       QRMaterial = materialCache[url];
       if(!QRMaterial){
-        let QRTexture = new Texture(url+"?cache=")
+        let QRTexture = new Texture(url)
          QRMaterial = new Material()
         QRMaterial.metallic = 0
         QRMaterial.roughness = 1
@@ -40,7 +40,9 @@ export default class ImageCache implements IScript<Props> {
     //host.materialCache=this.materialCache;
 
     //const materialCache = this.materialCache;
-
+    //assign method to Entity so it can be called later
+    //this is my workaround to add methods without imports
+    //compiler WARNS but lets it work
     host.getOrLoadMaterial=getOrLoadMaterial;
   }
 }
