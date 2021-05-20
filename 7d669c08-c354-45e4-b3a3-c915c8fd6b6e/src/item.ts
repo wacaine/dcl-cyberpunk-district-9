@@ -7,13 +7,16 @@ export type Props = {
 type ChangeTextType = { newText: string }
 
 export default class SignPost implements IScript<Props> {
-  init() {}
+  shape: PlaneShape
+
+  init() {
+    this.shape = new PlaneShape();
+  }
 
   spawn(host: Entity, props: Props, channel: IChannel) {
     const sign = new Entity()
     sign.setParent(host)
 
-    //sign.addComponent(new GLTFShape('models/QR_SimpleFrame.glb'))
     sign.addComponent(new Transform({}))
 
     let url = props.image
@@ -37,7 +40,7 @@ export default class SignPost implements IScript<Props> {
     
     let QRPlane = new Entity()
     QRPlane.setParent(host)
-    QRPlane.addComponent(new PlaneShape())
+    QRPlane.addComponent(this.shape)
     QRPlane.addComponent(QRMaterial)
     QRPlane.addComponent(
       new Transform({

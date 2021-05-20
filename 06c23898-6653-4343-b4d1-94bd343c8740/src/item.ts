@@ -5,13 +5,16 @@ export type Props = {
 type ChangeTextType = { newText: string }
 
 export default class SignPost implements IScript<Props> {
-  init() {}
+  shape: GLTFShape
+
+  init() {
+    this.shape = new GLTFShape('06c23898-6653-4343-b4d1-94bd343c8740/models/Display_Monitor.glb');
+  }
 
   spawn(host: Entity, props: Props, channel: IChannel) {
     const sign = new Entity()
     sign.setParent(host)
-
-    sign.addComponent(new GLTFShape('06c23898-6653-4343-b4d1-94bd343c8740/models/Display_Monitor.glb'))
+    sign.addComponent(this.shape)
     sign.addComponent(new Transform({}))
 
     let url = props.image

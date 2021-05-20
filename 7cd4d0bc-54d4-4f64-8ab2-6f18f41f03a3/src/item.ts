@@ -11,7 +11,11 @@ export default class Button implements IScript<Props> {
 
   active: Record<string, boolean> = {}
 
-  init() {}
+  shape: GLTFShape
+  
+  init() {
+    this.shape = new GLTFShape('7cd4d0bc-54d4-4f64-8ab2-6f18f41f03a3/models/Cyberpunk_Door_Anim.glb');
+  }
 
   toggle(entity: Entity, value: boolean, playSound = true) {
     if (this.active[entity.name] === value) return
@@ -45,7 +49,7 @@ export default class Button implements IScript<Props> {
     door.addComponent(animator)
     openClip.stop()
 
-    door.addComponent(new GLTFShape('7cd4d0bc-54d4-4f64-8ab2-6f18f41f03a3/models/Cyberpunk_Door_Anim.glb'))
+    door.addComponent(this.shape)
 
     door.addComponent(
       new OnPointerDown(

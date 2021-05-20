@@ -12,13 +12,19 @@ const getEntityByName = (name: string) =>
     .filter((entity) => (entity as Entity).name === name)[0]
 
 export default class SignPost implements IScript<Props> {
-  init() {}
+  shape: GLTFShape
+  planeShape: PlaneShape
+
+  init() {
+    this.shape = new GLTFShape('5af1151e-9def-47ed-88f9-1f4e52caee28/models/Game_Cube_A.glb')
+    this.planeShape = new PlaneShape()
+  }
 
   spawn(host: Entity, props: Props, channel: IChannel) {
     const sign = new Entity()
     sign.setParent(host)
 
-    sign.addComponent(new GLTFShape('5af1151e-9def-47ed-88f9-1f4e52caee28/models/Game_Cube_A.glb'))
+    sign.addComponent(this.shape)
     sign.addComponent(new Transform({}))
 
     let url = props.image
@@ -45,7 +51,7 @@ export default class SignPost implements IScript<Props> {
 
     let QRPlane = new Entity()
     QRPlane.setParent(host)
-    QRPlane.addComponent(new PlaneShape())
+    QRPlane.addComponent(this.planeShape)
     QRPlane.addComponent(QRMaterial)
     QRPlane.addComponent(
       new Transform({
@@ -59,7 +65,7 @@ export default class SignPost implements IScript<Props> {
 
     let QRPlane2 = new Entity()
     QRPlane2.setParent(host)
-    QRPlane2.addComponent(new PlaneShape())
+    QRPlane2.addComponent(this.planeShape)
     QRPlane2.addComponent(QRMaterial)
     QRPlane2.addComponent(
       new Transform({
@@ -73,7 +79,7 @@ export default class SignPost implements IScript<Props> {
 
     let QRPlane3 = new Entity()
     QRPlane3.setParent(host)
-    QRPlane3.addComponent(new PlaneShape())
+    QRPlane3.addComponent(this.planeShape)
     QRPlane3.addComponent(QRMaterial)
     QRPlane3.addComponent(
       new Transform({
@@ -87,7 +93,7 @@ export default class SignPost implements IScript<Props> {
 
     let QRPlane4 = new Entity()
     QRPlane4.setParent(host)
-    QRPlane4.addComponent(new PlaneShape())
+    QRPlane4.addComponent(this.planeShape)
     QRPlane4.addComponent(QRMaterial)
     QRPlane4.addComponent(
       new Transform({
