@@ -1,4 +1,4 @@
-import { getOrLoadMaterial } from "../../entity-cache/src/item" //importing this since I can control when using sdk
+import { getOrLoadMaterial,getOrLoadPrimitiveShapeByName } from "../../entity-cache/src/item" //importing this since I can control when using sdk
 
 export type Props = {
   image: string
@@ -10,7 +10,11 @@ export default class SignPost implements IScript<Props> {
   shape: PlaneShape
 
   init() {
-    this.shape = new PlaneShape();
+    if(getOrLoadPrimitiveShapeByName){
+      this.shape = getOrLoadPrimitiveShapeByName("PlaneShape") as PlaneShape
+    }else{
+      this.shape = new PlaneShape()
+    }
   }
 
   spawn(host: Entity, props: Props, channel: IChannel) {

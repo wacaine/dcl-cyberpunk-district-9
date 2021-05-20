@@ -1,4 +1,4 @@
-import { getOrLoadMaterial } from "../../entity-cache/src/item" //importing this since I can control when using sdk
+import { getOrLoadMaterial,getOrLoadPrimitiveShapeByName } from "../../entity-cache/src/item" //importing this since I can control when using sdk
 
 export type Props = {
   image: string
@@ -17,7 +17,11 @@ export default class SignPost implements IScript<Props> {
 
   init() {
     this.shape = new GLTFShape('69604eaa-4cb2-4b15-a1c2-16f37d92f57d/models/Game_Cube_C.glb')
-    this.planeShape = new PlaneShape()
+    if(getOrLoadPrimitiveShapeByName){
+      this.planeShape = getOrLoadPrimitiveShapeByName("PlaneShape") as PlaneShape
+    }else{
+      this.planeShape = new PlaneShape()
+    }
   }
 
   spawn(host: Entity, props: Props, channel: IChannel) {

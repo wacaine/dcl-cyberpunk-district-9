@@ -2,6 +2,7 @@ export type Props = {}
 
 //import { GameManager } from "./gameManager"
 const materialCache: Record<string, Material> = {};
+const shapeCache: Record<string, Shape> = {};
 
 export const getOrLoadMaterial = function(url){
       log(".getOrCreateMaterial "+url);
@@ -23,6 +24,27 @@ export const getOrLoadMaterial = function(url){
         log("getOrCreateMaterial CACHE HIT "+url + " " + QRMaterial);
       }
       return QRMaterial;
+    }
+
+export const getOrLoadPrimitiveShapeByName = function(shapeName){
+      log(".getOrLoadPrimitiveShapeByName "+shapeName);
+      let shape : Shape = null;
+
+      shape = shapeCache[shapeName];
+      if(!shape){
+        switch(shapeName){
+          case "PlaneShape":
+              shape = new PlaneShape();
+              break;
+          default:
+              break;
+        }
+        shapeCache[shapeName] = shape;
+        log("getOrLoadPrimitiveShapeByName CACHE MISS "+shapeName);
+      }else{
+        log("getOrLoadPrimitiveShapeByName CACHE HIT "+shapeName + " " + shape);
+      }
+      return shape;
     }
 
 export default class ImageCache implements IScript<Props> {
