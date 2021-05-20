@@ -5,10 +5,12 @@ export type Props = {
 
 export default class Button implements IScript<Props> {
   clip = new AudioClip('a186416e-81f1-4d0a-b0cd-a4b0077d264d/sounds/click.mp3')
-
+  shape: GLTFShape
   active: Record<string, boolean> = {}
 
-  init() {}
+  init() {
+    this.shape = new GLTFShape('a186416e-81f1-4d0a-b0cd-a4b0077d264d/models/Toggle_Fantasy_Button.glb')
+  }
 
   toggle(entity: Entity, value: boolean, playSound = true) {
     if (this.active[entity.name] === value) return
@@ -42,7 +44,7 @@ export default class Button implements IScript<Props> {
     button.addComponent(animator)
     activateClip.stop()
 
-    button.addComponent(new GLTFShape('a186416e-81f1-4d0a-b0cd-a4b0077d264d/models/Toggle_Fantasy_Button.glb'))
+    button.addComponent(this.shape)
 
     button.addComponent(
       new OnPointerDown(

@@ -13,7 +13,13 @@ export default class Lamp implements IScript<Props> {
   offModels: Record<string, GLTFShape> = {}
   AudioSources: Record<string, AudioSource> = {}
 
-  init() {}
+  shapeWhite: GLTFShape
+  shapeBlack: GLTFShape
+
+  init() {
+    this.shapeWhite = new GLTFShape('3cf05054-0a57-4b00-ba77-a3f21876494d/models/Ropelights_White.glb');
+    this.shapeBlack = new GLTFShape('3cf05054-0a57-4b00-ba77-a3f21876494d/models/Ropelights_Black.glb');
+  }
 
   toggle(entityName: string, value: boolean) {
     if (this.active[entityName] === value) return
@@ -35,13 +41,13 @@ export default class Lamp implements IScript<Props> {
     const lampOff = new Entity(host.name + '-off')
     lampOff.setParent(host)
     lampOff.addComponent(new Transform())
-    let offModel = new GLTFShape('3cf05054-0a57-4b00-ba77-a3f21876494d/models/Ropelights_Black.glb')
+    let offModel = this.shapeBlack;
     lampOff.addComponent(offModel)
 
     const lampOn = new Entity(host.name + '-on')
     lampOn.setParent(host)
     lampOn.addComponent(new Transform())
-    let onModel = new GLTFShape('3cf05054-0a57-4b00-ba77-a3f21876494d/models/Ropelights_White.glb')
+    let onModel = this.shapeWhite;
     lampOn.addComponent(onModel)
 
     if (props.startOn) {
