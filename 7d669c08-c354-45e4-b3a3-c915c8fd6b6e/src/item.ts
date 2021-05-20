@@ -1,4 +1,4 @@
-import { getOrLoadMaterial } from "../../image-cache/src/item" //importing this since I can control when using sdk
+import { getOrLoadMaterial } from "../../entity-cache/src/item" //importing this since I can control when using sdk
 
 export type Props = {
   image: string
